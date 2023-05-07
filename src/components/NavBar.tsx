@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import Dropdown from "./Dropdown";
 
 export default function NavBar() {
   return (
@@ -12,7 +12,15 @@ export default function NavBar() {
           alt="Memopup Logo"
         />
       </div>
-      <div className="h-10 w-10 rounded-full bg-neutral"></div>
+      <Dropdown />
+      <div className="h-12 w-12">
+        <Image
+          width={48}
+          height={48}
+          src={"/icons/avatar.svg"}
+          alt="Default avatar"
+        />
+      </div>
     </div>
   );
 }

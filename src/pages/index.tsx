@@ -5,6 +5,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import { api } from "~/utils/api";
 import NavBar from "~/components/NavBar";
+import Chat from "~/components/Chat";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -12,12 +13,13 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Memopup</title>
-        <meta name="description" content="Doggo remembers your AI prompts" />
         <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="Doggo remembers your AI prompts" />
+        <title>Memopup</title>
       </Head>
-      <main className="">
+      <main className="flex min-h-screen flex-col justify-between bg-base-100">
         <NavBar />
+        <Chat />
       </main>
     </>
   );
