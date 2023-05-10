@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Button from "./Button";
 
 export default function Chat() {
@@ -8,7 +9,7 @@ export default function Chat() {
         <div className="flex max-w-full flex-wrap gap-2">
           <Button togglable>Translate</Button>
           <Button togglable>🎶 Poem 🎶</Button>
-          <Button>+ New Prompt?</Button>
+          <Button modalId="prompt-modal">+ New Prompt?</Button>
         </div>
       </div>
       <input

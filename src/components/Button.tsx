@@ -3,12 +3,14 @@ import cn from "classnames";
 
 interface ButtonProps {
   togglable?: boolean;
+  modalId?: string;
 }
 
 export default function Button(props: ComponentProps<"button"> & ButtonProps) {
   const {
     className: classNameProps,
     togglable = false,
+    modalId,
     onClick: onClickCallback,
     ...buttonProps
   } = props;
@@ -37,6 +39,16 @@ export default function Button(props: ComponentProps<"button"> & ButtonProps) {
         {...buttonProps}
       ></button>
     </>
+  ) : modalId ? (
+    <label
+      htmlFor={modalId}
+      className={cn(
+        "btn-outline btn rounded-none text-lg capitalize text-neutral",
+        classNameProps
+      )}
+    >
+      {props.children}
+    </label>
   ) : (
     <button
       type="button"

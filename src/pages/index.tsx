@@ -6,6 +6,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import NavBar from "~/components/NavBar";
 import Chat from "~/components/Chat";
+import PromptModal from "~/components/PromptModal";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -17,6 +18,7 @@ const Home: NextPage = () => {
         <meta name="description" content="Doggo remembers your AI prompts" />
         <title>Memopup</title>
       </Head>
+      <PromptModal />
       <main className="flex min-h-screen flex-col justify-between bg-base-100">
         <NavBar />
         <Chat />

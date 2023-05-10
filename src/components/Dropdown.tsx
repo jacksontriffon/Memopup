@@ -7,16 +7,23 @@ export default function Dropdown(props: ComponentProps<"select">) {
   const [selected, setSelected] = useState("");
   return (
     <select
-      className={cn("select-ghost select text-center text-lg", classNameProps)}
+      className={cn(
+        "select-ghost select text-center text-lg @xs:text-xl",
+        classNameProps
+      )}
       {...selectProps}
     >
-      <option className="text-sm" disabled defaultValue={""}>
+      {/* <button
+        className="@xs:text-md cursor-not-allowed text-sm"
+        disabled
+        defaultValue={""}
+      >
         Pick AI model
-      </option>
-      <option value={"Midjourney"} className="text-sm">
+      </button> */}
+      <option value="Midjourney" className="@xs:text-md cursor-pointer">
         Midjourney
       </option>
-      <option value="GPT-4" className="text-sm">
+      <option value="GPT-4" className="@xs:text-md cursor-pointer">
         GPT-4
       </option>
     </select>

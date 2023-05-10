@@ -3,8 +3,8 @@ import Dropdown from "./Dropdown";
 
 export default function NavBar() {
   return (
-    <div className="flex justify-between px-4 pt-4 transition-all duration-300">
-      <div className="h-12 w-12">
+    <header className="flex justify-between px-4 pt-4 transition-all duration-300 @container">
+      <div className="h-12 w-12 @xs:h-16 @xs:w-16">
         <Image
           src="/images/memopup.png"
           width={256}
@@ -13,7 +13,7 @@ export default function NavBar() {
         />
       </div>
       <Dropdown />
-      <div className="h-12 w-12">
+      <div className="h-12 w-12 @xs:h-16 @xs:w-16">
         <Image
           width={48}
           height={48}
@@ -21,6 +21,6 @@ export default function NavBar() {
           alt="Default avatar"
         />
       </div>
-    </div>
+    </header>
   );
 }
