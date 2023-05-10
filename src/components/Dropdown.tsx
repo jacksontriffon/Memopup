@@ -7,8 +7,9 @@ export default function Dropdown(props: ComponentProps<"select">) {
   const [selected, setSelected] = useState("");
   return (
     <select
+      onSelect={(e) => console.log(e)}
       className={cn(
-        "select-ghost select text-center text-lg @xs:text-xl",
+        "select-ghost select border-none text-center text-lg @xs:text-xl",
         classNameProps
       )}
       {...selectProps}

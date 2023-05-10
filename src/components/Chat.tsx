@@ -1,5 +1,5 @@
-import Link from "next/link";
 import Button from "./Button";
+import Input from "./Input";
 
 export default function Chat() {
   return (
@@ -12,10 +12,7 @@ export default function Chat() {
           <Button modalId="prompt-modal">+ New Prompt?</Button>
         </div>
       </div>
-      <input
-        className="input-secondary input w-full rounded-full border-none bg-base-200 text-lg font-bold"
-        placeholder="Type a prompt"
-      />
+      <Input />
     </div>
   );
 }

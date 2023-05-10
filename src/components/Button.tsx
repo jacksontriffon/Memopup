@@ -4,6 +4,9 @@ import cn from "classnames";
 interface ButtonProps {
   togglable?: boolean;
   modalId?: string;
+  checkboxProps?: ComponentProps<"input">;
+  checkedClassNames?: string;
+  uncheckedClassNames?: string;
 }
 
 export default function Button(props: ComponentProps<"button"> & ButtonProps) {
@@ -11,7 +14,10 @@ export default function Button(props: ComponentProps<"button"> & ButtonProps) {
     className: classNameProps,
     togglable = false,
     modalId,
+    checkedClassNames = "btn-primary text-white",
+    uncheckedClassNames = "btn-ghost bg-base-200",
     onClick: onClickCallback,
+    checkboxProps,
     ...buttonProps
   } = props;
 
@@ -19,18 +25,19 @@ export default function Button(props: ComponentProps<"button"> & ButtonProps) {
 
   return togglable ? (
     <>
-      <input type="checkbox" className="hidden" checked={checked} />
+      <input
+        type="checkbox"
+        className="hidden"
+        checked={checked}
+        {...checkboxProps}
+      />
       <button
         role="checkbox"
         type="button"
-        className={cn(
-          "btn rounded-none text-lg capitalize",
-          {
-            "btn-ghost bg-base-200": !checked,
-            "btn-primary text-white": checked,
-          },
-          classNameProps
-        )}
+        className={cn("btn rounded-none text-lg capitalize", classNameProps, {
+          [uncheckedClassNames]: !checked,
+          [checkedClassNames]: checked,
+        })}
         aria-checked={checked}
         onClick={(e) => {
           setChecked(!checked);
