@@ -2,20 +2,20 @@ import { useState, type ComponentProps } from "react";
 import cn from "classnames";
 
 interface ButtonProps {
-  buttonType?: "toggle" | "button";
+  togglable?: boolean;
 }
 
 export default function Button(props: ComponentProps<"button"> & ButtonProps) {
   const {
     className: classNameProps,
-    buttonType = "toggle",
+    togglable = false,
     onClick: onClickCallback,
     ...buttonProps
   } = props;
 
   const [checked, setChecked] = useState(false);
 
-  return buttonType === "toggle" ? (
+  return togglable ? (
     <>
       <input type="checkbox" className="hidden" checked={checked} />
       <button
@@ -37,7 +37,7 @@ export default function Button(props: ComponentProps<"button"> & ButtonProps) {
         {...buttonProps}
       ></button>
     </>
-  ) : buttonType === "button" ? (
+  ) : (
     <button
       type="button"
       className={cn(
@@ -46,5 +46,5 @@ export default function Button(props: ComponentProps<"button"> & ButtonProps) {
       )}
       {...buttonProps}
     ></button>
-  ) : null;
+  );
 }

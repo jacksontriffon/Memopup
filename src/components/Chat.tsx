@@ -6,9 +6,9 @@ export default function Chat() {
       <div className="flex flex-col gap-2 p-4">
         <h3 className="text-lg font-bold text-neutral">Saved Prompts</h3>
         <div className="flex max-w-full flex-wrap gap-2">
-          <Button>Translate</Button>
-          <Button>🎶 Poem 🎶</Button>
-          <Button buttonType="button">+ New Prompt?</Button>
+          <Button togglable>Translate</Button>
+          <Button togglable>🎶 Poem 🎶</Button>
+          <Button>+ New Prompt?</Button>
         </div>
       </div>
       <input
