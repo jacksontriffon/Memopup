@@ -9,8 +9,6 @@ import PromptModal from "~/components/PromptModal";
 import Image from "next/image";
 
 const Home: NextPage = () => {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
-
   return (
     <>
       <Head>
@@ -19,7 +17,7 @@ const Home: NextPage = () => {
         <title>Memopup</title>
       </Head>
       <PromptModal />
-      <main className="flex min-h-screen flex-col justify-between bg-base-100">
+      <main className="flex flex-col justify-between bg-base-100">
         <AuthPage />
       </main>
     </>
@@ -31,10 +29,10 @@ export default Home;
 const AuthPage: React.FC = () => {
   const { data: sessionData } = useSession();
 
-  const { data: secretMessage } = api.example.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined }
-  );
+  // const { data: secretMessage } = api.example.getSecretMessage.useQuery(
+  //   undefined, // no input
+  //   { enabled: sessionData?.user !== undefined }
+  // );
 
   return (
     <>
@@ -44,7 +42,7 @@ const AuthPage: React.FC = () => {
           <Chat />
         </>
       ) : (
-        <div className="min-w-screen flex min-h-screen flex-col items-center justify-center gap-8">
+        <div className="flex flex-col items-center justify-center gap-8">
           <div className="flex items-center justify-center gap-4">
             <Image
               src="/images/memopup.png"
