@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Dropdown from "./Dropdown";
-import { useSession } from "next-auth/react";
+import { useSession, signOut, signIn } from "next-auth/react";
 import { useState } from "react";
 
 export default function NavBar() {
@@ -34,6 +34,7 @@ export default function NavBar() {
           height={256}
           src={displayPicture}
           alt="Default avatar"
+          onClick={sessionData ? () => void signOut() : () => void signIn()}
         />
       </button>
     </header>

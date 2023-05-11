@@ -42,7 +42,7 @@ const AuthPage: React.FC = () => {
           <Chat />
         </>
       ) : (
-        <div className="flex flex-col items-center justify-center gap-8">
+        <div className="min-w-screen flex min-h-screen flex-col items-center justify-center gap-8">
           <div className="flex items-center justify-center gap-4">
             <Image
               src="/images/memopup.png"
