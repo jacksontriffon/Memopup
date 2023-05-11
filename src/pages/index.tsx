@@ -2,7 +2,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-import { api } from "~/utils/api";
+// import { api } from "~/utils/api";
 import NavBar from "~/components/NavBar";
 import Chat from "~/components/Chat";
 import PromptModal from "~/components/PromptModal";
