@@ -1,10 +1,9 @@
-import { type ComponentProps, useState } from "react";
+import { type ComponentProps } from "react";
 import cn from "classnames";
 
 export default function Dropdown(props: ComponentProps<"select">) {
   const { className: classNameProps, ...selectProps } = props;
 
-  const [selected, setSelected] = useState("");
   return (
     <select
       onSelect={(e) => console.log(e)}
@@ -21,10 +20,14 @@ export default function Dropdown(props: ComponentProps<"select">) {
       >
         Pick AI model
       </button> */}
-      <option value="Midjourney" className="@xs:text-md cursor-pointer">
+      <option
+        disabled
+        value="Midjourney"
+        className="@xs:text-md cursor-pointer text-center"
+      >
         Midjourney
       </option>
-      <option value="GPT-4" className="@xs:text-md cursor-pointer">
+      <option value="GPT-4" className="@xs:text-md cursor-pointer text-center">
         GPT-4
       </option>
     </select>

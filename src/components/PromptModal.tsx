@@ -1,13 +1,12 @@
 import Button from "./Button";
-import Input from "./Input";
 import Radio from "./Radio";
 
 export default function PromptModal() {
   return (
     <>
       <input type="checkbox" id="prompt-modal" className="modal-toggle" />
-      <div className="modal bg-base-100 bg-opacity-75">
-        <div className="modal-box bg-base-200">
+      <label className="modal bg-base-100 bg-opacity-75" htmlFor="prompt-modal">
+        <label className="modal-box relative bg-base-200" htmlFor="">
           <div className="flex flex-col gap-2">
             <h3 className="text-xl font-bold text-neutral opacity-50">
               New Prompt
@@ -63,8 +62,8 @@ export default function PromptModal() {
               Submit
             </Button>
           </div>
-        </div>
-      </div>
+        </label>
+      </label>
     </>
   );
 }

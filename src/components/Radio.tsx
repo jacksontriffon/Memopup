@@ -1,5 +1,5 @@
 import cn from "classnames";
-import { ComponentProps } from "react";
+import { type ComponentProps } from "react";
 
 interface RadioProps {
   text: string;
@@ -25,6 +25,7 @@ export default function Radio(props: ComponentProps<"div"> & RadioProps) {
           name={radioName}
           className={cn("radio", radioClassName)}
           checked
+          readOnly
           {...radioProps}
         />
       </label>
