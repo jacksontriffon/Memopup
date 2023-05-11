@@ -6,6 +6,7 @@ import { api } from "~/utils/api";
 import NavBar from "~/components/NavBar";
 import Chat from "~/components/Chat";
 import PromptModal from "~/components/PromptModal";
+import Image from "next/image";
 
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -19,8 +20,7 @@ const Home: NextPage = () => {
       </Head>
       <PromptModal />
       <main className="flex min-h-screen flex-col justify-between bg-base-100">
-        <NavBar />
-        <Chat />
+        <AuthPage />
       </main>
     </>
   );
@@ -28,7 +28,7 @@ const Home: NextPage = () => {
 
 export default Home;
 
-const AuthShowcase: React.FC = () => {
+const AuthPage: React.FC = () => {
   const { data: sessionData } = useSession();
 
   const { data: secretMessage } = api.example.getSecretMessage.useQuery(
@@ -37,17 +37,31 @@ const AuthShowcase: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
-      </p>
-      <button
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
-    </div>
+    <>
+      {sessionData ? (
+        <>
+          <NavBar />
+          <Chat />
+        </>
+      ) : (
+        <div className="min-w-screen flex min-h-screen flex-col items-center justify-center gap-8">
+          <div className="flex items-center justify-center gap-4">
+            <Image
+              src="/images/memopup.png"
+              width={64}
+              height={64}
+              alt="Memopup Logo"
+            />
+            <h1 className="text-3xl font-bold">Memopup wants to chat!</h1>
+          </div>
+          <button
+            className="btn text-sm"
+            onClick={sessionData ? () => void signOut() : () => void signIn()}
+          >
+            Login
+          </button>
+        </div>
+      )}
+    </>
   );
 };
