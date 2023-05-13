@@ -10,6 +10,42 @@ datasource db {
   relationMode = "prisma"
 }
 
+// Added in //
+model Message {
+    id        String   @id @default(cuid())
+    chatId    String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    content   String
+    chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+}
+
+model Chat {
+    id        String   @id @default(cuid())
+    userId    String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    title     String
+    messages  Message[]
+    aiModel   String
+}
+
+model Prompt {
+    id        String   @id @default(cuid())
+    userId    String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    title     String
+    content   String
+    prefix    Boolean
+    aiModel   String
+}
+
+
+// End //
+
 model Example {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
@@ -51,6 +87,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    chats         Chat[]
+    prompts       Prompt[]
 }
 
 model VerificationToken {
