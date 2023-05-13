@@ -7,6 +7,7 @@ import NavBar from "~/components/NavBar";
 import Chat from "~/components/Chat";
 import PromptModal from "~/components/PromptModal";
 import Image from "next/image";
+import MemopupButton from "~/components/Memopup/MemopupButton";
 
 const Home: NextPage = () => {
   return (
@@ -27,7 +28,7 @@ const Home: NextPage = () => {
 export default Home;
 
 const AuthPage: React.FC = () => {
-  const { data: sessionData } = useSession();
+  const { data: sessionData, status } = useSession();
 
   // const { data: secretMessage } = api.example.getSecretMessage.useQuery(
   //   undefined, // no input
@@ -36,20 +37,28 @@ const AuthPage: React.FC = () => {
 
   return (
     <>
-      {sessionData ? (
-        <>
-          <NavBar />
-          <Chat />
-        </>
-      ) : (
+      {status === "loading" ? (
         <div className="min-w-screen flex min-h-screen flex-col items-center justify-center gap-8">
           <div className="flex items-center justify-center gap-4">
             <Image
-              src="/images/memopup.png"
+              src="/images/memopup_talk.png"
               width={64}
               height={64}
               alt="Memopup Logo"
             />
+            <h1 className="text-3xl font-bold">{"Wait! I'm thinking..."}</h1>
+          </div>
+          <div></div>
+        </div>
+      ) : status === "authenticated" ? (
+        <>
+          <NavBar />
+          <Chat />
+        </>
+      ) : status === "unauthenticated" ? (
+        <div className="min-w-screen flex min-h-screen flex-col items-center justify-center gap-8">
+          <div className="flex items-center justify-center gap-4">
+            <MemopupButton />
             <h1 className="text-3xl font-bold">Memopup wants to chat!</h1>
           </div>
           <button
@@ -58,6 +67,18 @@ const AuthPage: React.FC = () => {
           >
             Login
           </button>
+        </div>
+      ) : (
+        <div className="min-w-screen flex min-h-screen flex-col items-center justify-center gap-8">
+          <div className="flex items-center justify-center gap-4">
+            <h1 className="text-3xl font-bold text-error">Error</h1>
+            <h3 className="text-xl font-medium text-base-300">
+              {"oh no! something bad happened, and memopup doesn't know why"}
+            </h3>
+            <h3 className="text-lg font-medium text-base-200">
+              {"Please, try again later"}
+            </h3>
+          </div>
         </div>
       )}
     </>
