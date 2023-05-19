@@ -8,6 +8,7 @@ import Chat from "~/components/Chat";
 import PromptModal from "~/components/PromptModal";
 import Image from "next/image";
 import MemopupButton from "~/components/Memopup/MemopupButton";
+import Menu from "~/components/Menu/Menu";
 
 const Home: NextPage = () => {
   return (
@@ -18,9 +19,11 @@ const Home: NextPage = () => {
         <title>Memopup</title>
       </Head>
       <PromptModal />
-      <main className="flex flex-col justify-between bg-base-100">
-        <AuthPage />
-      </main>
+      <Menu>
+        <main className="flex flex-col justify-between bg-base-100">
+          <AuthPage />
+        </main>
+      </Menu>
     </>
   );
 };

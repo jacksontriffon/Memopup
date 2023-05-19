@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Dropdown from "./Dropdown";
-import { useSession, signOut, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import MemopupButton from "./Memopup/MemopupButton";
 
 export default function NavBar() {
@@ -10,19 +10,21 @@ export default function NavBar() {
     : "/icons/avatar.svg";
 
   return (
-    <header className="flex items-center justify-between px-4 pt-4 transition-all duration-300 @container">
+    <header className="z-50 flex items-center justify-between bg-base-100 px-4 pb-2 pt-4 transition-all duration-300 @container">
       <MemopupButton />
       <Dropdown />
-      <button className="btn-circle btn h-12 w-12 overflow-hidden rounded-full border-base-300 bg-base-200 p-[2px] transition-all duration-300 sm:h-16 sm:w-16">
+      <label
+        htmlFor="menu"
+        className="drawer-button btn-circle btn h-12 w-12 overflow-hidden rounded-full border-base-300 bg-base-200 p-[2px] transition-all duration-300 sm:h-16 sm:w-16"
+      >
         <Image
           className="rounded-full"
           width={256}
           height={256}
           src={displayPicture}
           alt="Default avatar"
-          onClick={sessionData ? () => void signOut() : () => void signIn()}
         />
-      </button>
+      </label>
     </header>
   );
 }

@@ -12,12 +12,15 @@ datasource db {
 
 // Added in //
 model Message {
-    id        String   @id @default(cuid())
-    chatId    String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    content   String
-    chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+    id         String   @id @default(cuid())
+    chatId     String
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    content    String
+    senderName String
+    chat       Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+
+    @@index([chatId])
 }
 
 model Chat {
@@ -29,6 +32,8 @@ model Chat {
     title     String
     messages  Message[]
     aiModel   String
+
+    @@index([userId])
 }
 
 model Prompt {
@@ -41,6 +46,8 @@ model Prompt {
     content   String
     prefix    Boolean
     aiModel   String
+
+    @@index([userId])
 }
 
 
@@ -69,6 +76,7 @@ model Account {
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([provider, providerAccountId])
+    @@index([userId])
 }
 
 model Session {
@@ -77,6 +85,8 @@ model Session {
     userId       String
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId])
 }
 
 model User {

@@ -27,8 +27,11 @@ export default function Dropdown(props: ComponentProps<"select">) {
       >
         Midjourney
       </option>
-      <option value="GPT-4" className="@xs:text-md cursor-pointer text-center">
-        GPT-4
+      <option
+        value="ChatGPT"
+        className="@xs:text-md cursor-pointer text-center"
+      >
+        ChatGPT
       </option>
     </select>
   );
