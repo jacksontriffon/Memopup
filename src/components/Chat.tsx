@@ -126,46 +126,46 @@ export default function Chat(props: ChatProps) {
   };
 
   return (
-    <div className="fixed bottom-0 w-full p-4">
-      <div className="flex flex-col gap-2">
-        <div className="overflow-scroll">
-          {messages?.map((message, index) => {
-            // Previous message is from same person
-            // if (messages[index - 1]?.senderName === message.senderName) {
-            //   return (
-            //     <ChatMessage
-            //       key={index}
-            //       {...message}
-            //       showSenderName={false}
-            //       showUpdatedAt={true}
-            //     />
-            //   );
-            // } else {
-            return (
-              <ChatMessage
-                key={index}
-                {...message}
-                showSenderName={true}
-                showUpdatedAt={true}
-              />
-            );
-            // }
-          })}
-        </div>
+    <div className="bottom-0 w-full ">
+      <div className="flex flex-col gap-2 overflow-auto px-4">
+        {messages?.map((message, index) => {
+          // Previous message is from same person
+          // if (messages[index - 1]?.senderName === message.senderName) {
+          //   return (
+          //     <ChatMessage
+          //       key={index}
+          //       {...message}
+          //       showSenderName={false}
+          //       showUpdatedAt={true}
+          //     />
+          //   );
+          // } else {
+          return (
+            <ChatMessage
+              key={index}
+              {...message}
+              showSenderName={true}
+              showUpdatedAt={true}
+            />
+          );
+          // }
+        })}
       </div>
-      <div className="flex flex-col gap-2 p-4">
-        <h3 className="text-lg font-bold text-neutral">Saved Prompts</h3>
-        <div className="flex max-w-full flex-wrap gap-2">
-          {/* <Button togglable>Translate</Button> */}
-          {/* <Button togglable>🎶 Poem 🎶</Button> */}
-          <Button modalId="prompt-modal">+ New Prompt?</Button>
+      <div className="sticky bottom-0 bg-base-100 px-4 pb-4 transition-all">
+        <div className="flex flex-col gap-2 px-4 pb-4">
+          <h3 className="text-lg font-bold text-neutral">Saved Prompts</h3>
+          <div className="flex max-w-full flex-wrap gap-2">
+            {/* <Button togglable>Translate</Button> */}
+            {/* <Button togglable>🎶 Poem 🎶</Button> */}
+            <Button modalId="prompt-modal">+ New Prompt?</Button>
+          </div>
         </div>
+        <Input
+          aria-invalid={state === "error"}
+          disabled={state === "loading"}
+          onKeyDown={handleKeyDown}
+        />
       </div>
-      <Input
-        aria-invalid={state === "error"}
-        disabled={state === "loading"}
-        onKeyDown={handleKeyDown}
-      />
     </div>
   );
 }

@@ -30,12 +30,14 @@ export default function Menu(props: ComponentProps<"div">) {
           <p className="menu-title">Chats</p>
           {chats?.map((chat, index) => (
             <li key={index}>
-              <a>{chat.title}</a>
-              <p>{chat.aiModel}</p>
+              <a>
+                {chat.title}{" "}
+                <span className="badge badge-sm">{chat.aiModel}</span>
+              </a>
             </li>
           ))}
           <li
-            className="btn-outline btn-error btn mt-auto"
+            className="btn-error btn-outline btn mt-auto"
             onClick={() => sessionData && void signOut()}
           >
             Sign out

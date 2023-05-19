@@ -10,7 +10,7 @@ export default function NavBar() {
     : "/icons/avatar.svg";
 
   return (
-    <header className="z-50 flex items-center justify-between bg-base-100 px-4 pb-2 pt-4 transition-all duration-300 @container">
+    <header className="sticky top-0 z-50 flex items-center justify-between bg-base-100 px-4 pb-2 pt-4 transition-all duration-300 @container">
       <MemopupButton />
       <Dropdown />
       <label
