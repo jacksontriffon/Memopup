@@ -10,7 +10,7 @@ import MemopupButton from "~/components/Memopup/MemopupButton";
 import Menu from "~/components/Menu/Menu";
 
 import { atomWithStorage } from "jotai/utils";
-const storedChatIDAtom = atomWithStorage<string>("chatId", "");
+export const storedChatIDAtom = atomWithStorage<string>("chatId", "");
 
 const Home: NextPage = () => {
   return (
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
         <title>Memopup</title>
       </Head>
       <PromptModal />
-      <Menu storedChatIDAtom={storedChatIDAtom}>
+      <Menu>
         <main className="flex flex-col justify-between bg-base-100">
           <AuthPage />
         </main>

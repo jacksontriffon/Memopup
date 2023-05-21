@@ -3,14 +3,13 @@ import cn from "classnames";
 import { useSession, signOut } from "next-auth/react";
 import { api } from "~/utils/api";
 import { type Chat } from "@prisma/client";
-import { useAtom, type Atom } from "jotai";
+import { useAtom } from "jotai";
+import { storedChatIDAtom } from "~/pages";
 
-interface MenuProps {
-  storedChatIDAtom: Atom<string>;
-}
-
-export default function Menu(props: ComponentProps<"div"> & MenuProps) {
+export default function Menu(props: ComponentProps<"div">) {
+  const { children, className: classNameProp, ...containerProps } = props;
   const { data: sessionData } = useSession();
+  const [storedChatID, setStoredChatID] = useAtom(storedChatIDAtom);
 
   const { data: allChatsData, refetch: refetchChats } =
     api.chat.getAllChats.useQuery(undefined, {
@@ -27,13 +26,6 @@ export default function Menu(props: ComponentProps<"div"> & MenuProps) {
   });
 
   const [chats, setChats] = useState<Chat[]>(allChatsData ?? []);
-  const {
-    storedChatIDAtom,
-    children,
-    className: classNameProp,
-    ...containerProps
-  } = props;
-  const [storedChatID, setStoredChatID] = useAtom(storedChatIDAtom);
 
   return (
     <div {...containerProps} className={cn("drawer drawer-end", classNameProp)}>
