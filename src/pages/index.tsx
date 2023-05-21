@@ -2,13 +2,15 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-// import { api } from "~/utils/api";
 import NavBar from "~/components/NavBar";
 import Chat from "~/components/Chat";
 import PromptModal from "~/components/PromptModal";
 import Image from "next/image";
 import MemopupButton from "~/components/Memopup/MemopupButton";
 import Menu from "~/components/Menu/Menu";
+
+import { atomWithStorage } from "jotai/utils";
+const storedChatIDAtom = atomWithStorage("chatId", "");
 
 const Home: NextPage = () => {
   return (
@@ -19,7 +21,7 @@ const Home: NextPage = () => {
         <title>Memopup</title>
       </Head>
       <PromptModal />
-      <Menu>
+      <Menu storedChatIDAtom={storedChatIDAtom}>
         <main className="flex flex-col justify-between bg-base-100">
           <AuthPage />
         </main>
@@ -56,7 +58,9 @@ const AuthPage: React.FC = () => {
       ) : status === "authenticated" ? (
         <>
           <NavBar />
-          <Chat />
+          <div className="mt-auto">
+            <Chat storedChatIDAtom={storedChatIDAtom} />
+          </div>
         </>
       ) : status === "unauthenticated" ? (
         <div className="min-w-screen flex min-h-screen flex-col items-center justify-center gap-8">

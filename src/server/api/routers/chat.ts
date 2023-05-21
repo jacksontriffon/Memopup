@@ -11,13 +11,19 @@ export const chatRouter = createTRPCRouter({
     });
   }),
 
-  // getChat: protectedProcedure.query(({ ctx }) => {
-  //   return ctx.prisma.chat.findUnique({
-  //     where: {
-
-  //     },
-  //   });
-  // }),
+  getChatFromID: protectedProcedure
+    .input(
+      z.object({
+        chatId: z.string(),
+      })
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.chat.findUnique({
+        where: {
+          id: input.chatId,
+        },
+      });
+    }),
 
   createChat: protectedProcedure
     .input(
@@ -70,10 +76,7 @@ export const chatRouter = createTRPCRouter({
           id: input.chatId,
         },
       });
-      return {
-        deletedMessages,
-        deletedChat,
-      };
+      return deletedChat;
     }),
 
   // MESSAGE CRUD

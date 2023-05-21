@@ -3,10 +3,13 @@ import cn from "classnames";
 import { useSession, signOut } from "next-auth/react";
 import { api } from "~/utils/api";
 import { type Chat } from "@prisma/client";
+import { useAtom, type Atom } from "jotai";
 
-// interface MenuProps {}
+interface MenuProps {
+  storedChatIDAtom: Atom<string>;
+}
 
-export default function Menu(props: ComponentProps<"div">) {
+export default function Menu(props: ComponentProps<"div"> & MenuProps) {
   const { data: sessionData } = useSession();
 
   const { data: allChatsData, refetch: refetchChats } =
@@ -16,9 +19,21 @@ export default function Menu(props: ComponentProps<"div">) {
         setChats(currentChats);
       },
     });
+  const deleteChat = api.chat.deleteChat.useMutation({
+    onSuccess: (deletedChat) => {
+      setStoredChatID("");
+      console.log("Successfully deleted chat | ", deletedChat);
+    },
+  });
 
   const [chats, setChats] = useState<Chat[]>(allChatsData ?? []);
-  const { children, className: classNameProp, ...containerProps } = props;
+  const {
+    storedChatIDAtom,
+    children,
+    className: classNameProp,
+    ...containerProps
+  } = props;
+  const [storedChatID, setStoredChatID] = useAtom(storedChatIDAtom);
 
   return (
     <div {...containerProps} className={cn("drawer drawer-end", classNameProp)}>
@@ -30,17 +45,30 @@ export default function Menu(props: ComponentProps<"div">) {
           <p className="menu-title">Chats</p>
           {chats?.map((chat, index) => (
             <li key={index}>
-              <a>
-                {chat.title}{" "}
+              <a
+                onClick={() => {
+                  setStoredChatID(chat.id);
+                  console.log(storedChatID);
+                }}
+              >
+                {chat.title}
                 <span className="badge badge-sm">{chat.aiModel}</span>
               </a>
             </li>
           ))}
           <li
-            className="btn-error btn-outline btn mt-auto"
+            className="btn-outline btn-error btn mt-auto"
             onClick={() => sessionData && void signOut()}
           >
             Sign out
+          </li>
+          <li
+            className="btn-outline btn-error btn mt-auto"
+            onClick={() => {
+              deleteChat.mutate({ chatId: storedChatID });
+            }}
+          >
+            Delete this chat
           </li>
         </ul>
       </div>
