@@ -10,7 +10,7 @@ import MemopupButton from "~/components/Memopup/MemopupButton";
 import Menu from "~/components/Menu/Menu";
 
 import { atomWithStorage } from "jotai/utils";
-const storedChatIDAtom = atomWithStorage("chatId", "");
+const storedChatIDAtom = atomWithStorage<string>("chatId", "");
 
 const Home: NextPage = () => {
   return (

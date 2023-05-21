@@ -31,4 +31,33 @@ export const openaiRouter = createTRPCRouter({
         console.error("Error:", error);
       }
     }),
+
+  getAnswer: protectedProcedure
+    .input(
+      z.object({
+        message: z.string(),
+        aiModel: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const { message } = input;
+      try {
+        const response = await openai.createChatCompletion({
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "user",
+              content:
+                "Your name is Memopup, an AI puppy, answer this question all with lowercase letters: " +
+                message,
+            },
+          ],
+        });
+        const generatedTitle = response.data.choices[0];
+        const responseJSON = { answer: generatedTitle?.message?.content ?? "" };
+        return responseJSON;
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }),
 });

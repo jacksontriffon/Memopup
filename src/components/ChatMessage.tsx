@@ -1,7 +1,7 @@
 import { type Message } from "@prisma/client";
 import cn from "classnames";
 import { formatDistanceToNow, isSameSecond } from "date-fns";
-import { useState } from "react";
+import { type ComponentProps, useState } from "react";
 import { useInterval } from "usehooks-ts";
 
 export interface ChatMessageProps {
@@ -10,7 +10,9 @@ export interface ChatMessageProps {
   loading: boolean;
 }
 
-export default function ChatMessage(props: Message & ChatMessageProps) {
+export default function ChatMessage(
+  props: Message & ChatMessageProps & ComponentProps<"div">
+) {
   const {
     content,
     createdAt,
@@ -19,6 +21,7 @@ export default function ChatMessage(props: Message & ChatMessageProps) {
     showSenderName,
     showUpdatedAt,
     loading: defaultLoading,
+    ...containerProps
   } = props;
   const [loading, setLoading] = useState(defaultLoading);
 
@@ -47,6 +50,7 @@ export default function ChatMessage(props: Message & ChatMessageProps) {
         ["chat-end"]: senderName !== "Memopup",
         ["animate-pulse"]: loading,
       })}
+      {...containerProps}
     >
       {showSenderName && <div className="chat-header">{senderName}</div>}
       <div
