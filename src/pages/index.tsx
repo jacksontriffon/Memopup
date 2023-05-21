@@ -59,7 +59,7 @@ const AuthPage: React.FC = () => {
         <>
           <NavBar />
           <div className="mt-auto">
-            <Chat storedChatIDAtom={storedChatIDAtom} />
+            <Chat />
           </div>
         </>
       ) : status === "unauthenticated" ? (
