@@ -6,15 +6,15 @@ import { type Prompt, type Chat, type Message } from "@prisma/client";
 import ChatInput from "./ChatInput/ChatInput";
 import { type Atom, useAtom, atom } from "jotai";
 import { getContentWithActivePrompts } from "./PromptModal";
+import { storedChatIDAtom } from "~/pages";
 
 export const activePromptsAtom = atom<Prompt[]>([]);
 
-interface ChatProps {
-  storedChatIDAtom: Atom<string>;
-}
+// interface ChatProps {
+//   storedChatIDAtom: Atom<string>;
+// }
 
-export default function Chat(props: ChatProps) {
-  const { storedChatIDAtom } = props;
+export default function Chat() {
   const [activePrompts, setActivePrompts] = useAtom(activePromptsAtom);
   const [storedChatID, setStoredChatID] = useAtom(storedChatIDAtom);
   const [chatData, setChatData] = useState<Chat | undefined>(undefined);
