@@ -146,8 +146,8 @@ export default function PromptModal() {
                         key={index}
                         uncheckedClassNames="bg-base-100 btn-ghost"
                         togglable
-                        onClick={(e) => {
-                          if (e.currentTarget.ariaChecked) {
+                        onClick={() => {
+                          if (!activePrompts.includes(prompt)) {
                             setActivePrompts([...activePrompts, prompt]);
                           } else {
                             const withoutThisPrompt = activePrompts.filter(

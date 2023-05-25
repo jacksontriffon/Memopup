@@ -9,9 +9,6 @@ import Image from "next/image";
 import MemopupButton from "~/components/Memopup/MemopupButton";
 import Menu from "~/components/Menu/Menu";
 
-import { atomWithStorage } from "jotai/utils";
-export const storedChatIDAtom = atomWithStorage<string>("chatId", "");
-
 const Home: NextPage = () => {
   return (
     <>
@@ -34,11 +31,6 @@ export default Home;
 
 const AuthPage: React.FC = () => {
   const { data: sessionData, status } = useSession();
-
-  // const { data: secretMessage } = api.example.getSecretMessage.useQuery(
-  //   undefined, // no input
-  //   { enabled: sessionData?.user !== undefined }
-  // );
 
   return (
     <>
