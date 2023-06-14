@@ -47,7 +47,7 @@ export const chatRouter = createTRPCRouter({
   //       id: z.string(),
   //       title: z.string(),
   //       aiModel: z.string(),
-  //       messages: z.array(prisma.message)
+  //       messages: z.array().
   //     })
   //   )
   //   .mutation(({ ctx, input }) => {

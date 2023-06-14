@@ -1,12 +1,12 @@
-import { useState, type ComponentProps, useEffect } from "react";
+import { useState, type ComponentProps, useEffect, useRef } from "react";
 import Button from "../Button";
 import Input from "../Input";
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
 import { type Prompt } from "@prisma/client";
 import { useAtom } from "jotai";
-import { activePromptsAtom } from "~/atoms/atoms";
-import { useEffectOnce } from "usehooks-ts";
+import { activePromptsAtom, editPromptAtom } from "~/atoms/atoms";
+import { useEffectOnce, useInterval } from "usehooks-ts";
 
 // interface ChatInputProps {
 //   // promptAtom: Atom<string>;
@@ -20,10 +20,22 @@ export default function ChatInput(props: ComponentProps<"input">) {
     onSuccess: (currentPrompts) => setPrompts(currentPrompts),
   });
   const [prompts, setPrompts] = useState<Prompt[]>();
+  const [holdingPrompt, setHoldingPrompt] = useState<Prompt>();
 
   useEffectOnce(() => {
     setActivePrompts([]);
   });
+  const [editPrompt, setEditPrompt] = useAtom(editPromptAtom);
+  useInterval(
+    () => {
+      setEditPrompt(holdingPrompt);
+      editPromptModalRef.current?.click();
+      setHoldingPrompt(undefined);
+    },
+    holdingPrompt ? 1000 : null
+  );
+
+  const editPromptModalRef = useRef<HTMLLabelElement>(null);
 
   return (
     <div className="sticky bottom-0 w-full bg-gradient-to-b from-transparent to-base-100 to-30% px-4 pb-4 pt-16 transition-all">
@@ -44,11 +56,33 @@ export default function ChatInput(props: ComponentProps<"input">) {
                   setActivePrompts(withoutThisPrompt);
                 }
               }}
+              onMouseDown={() => setHoldingPrompt(prompt)}
+              onTouchStart={() => setHoldingPrompt(prompt)}
+              onMouseLeave={() => {
+                if (holdingPrompt) {
+                  setHoldingPrompt(undefined);
+                }
+              }}
+              onTouchCancel={() => {
+                if (holdingPrompt) {
+                  setHoldingPrompt(undefined);
+                }
+              }}
+              onMouseUp={() => {
+                if (holdingPrompt) {
+                  setHoldingPrompt(undefined);
+                }
+              }}
             >
               {prompt.title}
             </Button>
           ))}
           <Button modalId="prompt-modal">+ New Prompt?</Button>
+          <label
+            ref={editPromptModalRef}
+            className="invisible"
+            htmlFor="edit-prompt-modal"
+          ></label>
         </div>
       </div>
       <Input autoFocus content="Checkers" {...inputProps} />

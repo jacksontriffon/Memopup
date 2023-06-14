@@ -8,6 +8,7 @@ import PromptModal from "~/components/PromptModal";
 import Image from "next/image";
 import MemopupButton from "~/components/Memopup/MemopupButton";
 import Menu from "~/components/Menu/Menu";
+import EditPromptModal from "~/components/EditPromptModal";
 
 const Home: NextPage = () => {
   return (
@@ -17,6 +18,7 @@ const Home: NextPage = () => {
         <meta name="description" content="Doggo remembers your AI prompts" />
         <title>Memopup</title>
       </Head>
+      <EditPromptModal />
       <PromptModal />
       <Menu>
         <main className="flex flex-col justify-between bg-base-100">

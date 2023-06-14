@@ -17,6 +17,7 @@ export default function ChatMessage(
     content,
     createdAt,
     updatedAt,
+    chatId: _chatId,
     senderName,
     showSenderName,
     showUpdatedAt,

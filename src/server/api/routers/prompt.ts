@@ -28,4 +28,42 @@ export const promptRouter = createTRPCRouter({
       },
     });
   }),
+
+  updatePrompt: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        userId: z.string(),
+        title: z.string(),
+        aiModel: z.string(),
+        prefix: z.boolean(),
+        content: z.string(),
+        createdAt: z.date(),
+        updatedAt: z.date(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.prompt.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          ...input,
+        },
+      });
+    }),
+
+  deletePrompt: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.prompt.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
 });

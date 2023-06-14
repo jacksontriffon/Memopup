@@ -28,6 +28,7 @@ export default function Button(props: ComponentProps<"button"> & ButtonProps) {
       <input
         type="checkbox"
         className="hidden"
+        readOnly
         checked={checked}
         {...checkboxProps}
       />

@@ -2,9 +2,9 @@ import { type KeyboardEventHandler, useState } from "react";
 import { api } from "~/utils/api";
 import ChatMessage from "./ChatMessage";
 import { useSession } from "next-auth/react";
-import { type Prompt, type Chat, type Message } from "@prisma/client";
+import { type Chat, type Message } from "@prisma/client";
 import ChatInput from "./ChatInput/ChatInput";
-import { type Atom, useAtom, atom } from "jotai";
+import { useAtom } from "jotai";
 import { getContentWithActivePrompts } from "./PromptModal";
 import { storedChatIDAtom } from "~/atoms/atoms";
 import Spinner from "./Spinner";
@@ -51,10 +51,6 @@ export default function Chat() {
       void refetchMessages();
       setMessages([...messages, newMessage]);
       setState("default");
-      window.scrollTo({
-        top: document.documentElement.getBoundingClientRect().height,
-        behavior: "smooth",
-      });
     },
     onError: (err) => {
       setState("error");
